@@ -1,0 +1,31 @@
+.navbar{
+    background-color: rgba(126,185,255,0.75) !important;
+}
+.navbar .nav-item a{
+    color: rgb(0,0,0) !important;
+}
+.navbar .dropdown-menu{
+    background-color: rgba(126,185,255,0.25);
+}
+.dropdown-item:hover{
+    background-color: rgba(126,185,255,0.75);
+}
+.btn-primary{
+    color: rgb(255,255,255);
+    background-color: rgb(72,83,82);
+    border-color: rgb(0,0,0);
+}
+.btn-primary:hover{
+    color: rgb(0,0,0);
+    background-color: rgb(167,177,176);
+    border-color: rgb(0,0,0)
+}
+.TDBquestionstyle{
+    color: rgb(151,0,139);
+    font-size: 1.3em;
+    text-shadow: 2px 4px 10px black;
+}
+.TDBtitlestyle{
+    color: rgb(0,0,0);
+    font-size: 1em;
+}
