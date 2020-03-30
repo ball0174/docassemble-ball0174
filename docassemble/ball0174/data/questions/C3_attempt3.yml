@@ -1,0 +1,148 @@
+---
+features:
+  css: C3_style.css
+  debug: True
+  hide standard menu: False
+---
+metadata:
+  title: |
+    <span class="TDBtitlestyle"> My Family Members
+    </span>
+---
+objects:
+  - TDBlogo: DAStaticFile.using(filename='flower-logo.jpg')
+---
+mandatory: True
+code: |
+  set_parts(logo='<img src="' + TDBlogo.url_for() + '" style="height: 60px; margin-left: 50px;">')
+---
+variable name: TDBfamilymembers
+use objects: True
+data:
+  - First Name: Murray
+    Surname: Ball
+    Age: 45
+    Hobbies: Dancing
+    Do you like pets?: False
+  - First Name: Tina
+    Surname: Ball
+    Age: 65
+    Hobbies: Singing
+    Do you like pets?: True
+  - First Name: Sally
+    Surname: Ball
+    Age: 234
+    Hobbies: malarkey
+    Do you like pets?: False
+  - First Name: David
+    Surname:  Krappenshitz
+    Age: 1
+    Hobbies: talking shit
+    Do you like pets?: False
+  - First Name: Tammy
+    Surname:  Shehole
+    Age: 34
+    Hobbies: eating
+    Do you like pets?: True
+  - First Name: Disfatt
+    Surname:  Bidge
+    Age: 5
+    Hobbies: being a b
+    Do you like pets?: True
+  - First Name: Jabreakit
+    Surname:  Jubawdit
+    Age: 76
+    Hobbies: paying debts
+    Do you like pets?: True
+  - First Name: Holden
+    Surname:  Afart
+    Age: 88
+    Hobbies: clenching
+    Do you like pets?: True
+---
+mandatory: True
+question:  Two Tables - Known Info and Confirmed Info
+subquestion: |
+  **This table contains all the information we have on your family members**
+  
+  ${ TDBcolumn_header }
+  ${ TDBdashes }
+  %for TDBitem in TDBtable_rows:
+  ${ TDBitem }
+  %endfor<br>
+  
+  <br>**This table contains all the information you have confirmed about your family members**
+  
+   ${ TDBconfirmed_table }
+  If **'Number of confirmed answers'** column is 5 then *all* attributes of family member have been confirmed<br>
+
+attachment:
+  name: Click below to download this info in PDF
+  docx template file: test.docx
+  valid formats:
+    - pdf
+allow emailing: False
+---
+code: |
+  TDBcolumn_header = ""
+  
+  for TDBitem in TDBfamilymembers[0]:
+    TDBcolumn_header += TDBitem + '|'
+  
+  TDBcolumn_header = TDBcolumn_header[:-1]
+---
+code: |
+  TDBdashes = "---"
+  
+  for TDBitem in range(len(TDBfamilymembers[0])-1):
+    TDBdashes += "---|"
+---
+code: |
+  TDBtable_rows = []
+  
+  for TDBitem in TDBfamilymembers:
+    MDrow = ""
+    for TDBkey in TDBitem:
+      MDrow += str(TDBitem[TDBkey]) + "|"
+    
+    MDrow = MDrow[:-1]
+    TDBtable_rows.append(MDrow)
+---
+code: |
+  TDBtable_rows = []
+  
+  for TDBitem in TDBfamilymembers:
+    MDrow = ""
+    for TDBkey in TDBitem:
+      MDrow += str(TDBitem[TDBkey]) + "|"
+
+    MDrow = MDrow[:-1]
+    TDBtable_rows.append(MDrow)
+---
+table: TDBconfirmed_table
+rows: TDBfamilymembers
+columns:
+ - Name: |
+    row_item['First Name']
+ - Confirmed answers: |
+    row_item['TDBanswers'].true_values()
+ - Number of confirmed answers: |
+      len(row_item['TDBanswers'].true_values())
+---
+question: |
+  ${ TDBfamilymembers[i]['First Name'] }, are these details correct?
+subquestion: |
+  <span class="TDBquestionstyle">
+  *Please find your name on the table, check your info, and answer the question below*
+  </span>
+  
+  ${ TDBcolumn_header }
+  ${ TDBdashes }
+  %for TDBitem in TDBtable_rows:
+  ${ TDBitem }
+  %endfor<br>
+fields:
+ - Please confirm and tick if your first name, surname, age, hobbies and whether you like pets (true or false) are all correct: TDBfamilymembers[i]['TDBanswers']
+   datatype: checkboxes
+   code: TDBfamilymembers[i].values()
+---
