@@ -113,6 +113,14 @@ rows: TDBfamilymembers
 columns:
  - Name: |
     row_item['First Name']
+ - Surname: |
+    row_item['Surname']
+ - Age: |
+    row_item['Age']
+ - Hobbies: |
+    row_item['Hobbies']
+ - Likes Pets: |
+    row_item['Do you like pets?']
  - Confirmed answers: |
     row_item['TDBanswers'].true_values()
  - Number of confirmed answers: |
