@@ -134,4 +134,14 @@ fields:
  - Please confirm and tick if your first name, surname, age, hobbies and whether you like pets (true or false) are all correct: TDBfamilymembers[i]['TDBanswers']
    datatype: checkboxes
    code: TDBfamilymembers[i].values()
+   
+ # I want to make the question ask 'First Name: Murray' etc... I can currently only make the question display the values aka just 'Murray' as checkbox items. I know the command I need is 'TDBfamilymembers[i].keys' to display checkboxes with 'Name: xxx, Age: xxx etc but I cannot work out where to place this line, I've tried 3 different ways
+ 
+  # code: TDBfamilymembers[i].keys() + TDBfamilymembers[i].values()
+
+  # code: |
+#  - TDBfamilymembers[i].keys()
+#  - TDBfamilymembers[i].values()
+
+  # code: TDBfamilymembers[i].keys().values()
 ---
